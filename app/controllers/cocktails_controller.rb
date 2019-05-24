@@ -8,6 +8,13 @@ class CocktailsController < ApplicationController
     @cocktail = Cocktail.new
   end
 
+  def show
+    # find me the instance of cocktail that matches the ID found in the URL params
+    # params are parameters (a hash) that gets passed along with our HTTP requests
+    #
+    @cocktail = Cocktail.find(params[:id])
+  end
+
   def create
     @cocktail = Cocktail.new(cocktail_params)
 

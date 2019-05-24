@@ -10,15 +10,24 @@
 # Ingredient.create(name: "ice")
 # Ingredient.create(name: "mint leaves")
 
+Cocktail.destroy_all
+Ingredient.destroy_all
+
 require 'json'
 require 'open-uri'
 
 url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
 cocktail_serialized = open(url).read
 cocktail = JSON.parse(cocktail_serialized)
- # puts cocktail["drinks"]
- 10.times do
-  cocktail["drinks"].each do |drink|
-    Ingredient.create(name: drink.values)
-  end
- end
+
+puts "Creating ingredients..."
+
+cocktail["drinks"].each do |drink|
+  Ingredient.create(name: drink.values)
+end
+
+puts "Creating 10 cocktails with coffee names..."
+
+10.times do
+  Cocktail.create(name: Faker::Coffee.blend_name)
+end
